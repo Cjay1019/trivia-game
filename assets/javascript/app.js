@@ -1,6 +1,5 @@
 // CSS
-// ADD REAL TRIVIA
-// ADD GIFS
+// ADD MORE QUESTIONS/GIFS
 
 $(document).ready(function() {
   var triviaContent = [
@@ -11,9 +10,10 @@ $(document).ready(function() {
         { answer: "Dr. Erskine", status: "unused", correct: "true" },
         { answer: "Dr. Levy", status: "unused", correct: "false" },
         { answer: "Dr. Whitehall", status: "unused", correct: "false" },
-        { answer: "Dr. West", status: "unused", correct: "false" }
+        { answer: "Dr. List", status: "unused", correct: "false" }
       ],
-      status: "unused"
+      status: "unused",
+      gif: "assets/images/cap.gif"
     },
     {
       question: "What is Captain America's shield made out of?",
@@ -23,7 +23,8 @@ $(document).ready(function() {
         { answer: "Carbonadium", status: "unused", correct: "false" },
         { answer: "Osmium", status: "unused", correct: "false" }
       ],
-      status: "unused"
+      status: "unused",
+      gif: "assets/images/shield.gif"
     },
     {
       question: "What caused Bruce Banners heroic change into the Hulk?",
@@ -33,7 +34,8 @@ $(document).ready(function() {
         { answer: "Vita Radiation", status: "unused", correct: "false" },
         { answer: "Beta Radiation", status: "unused", correct: "false" }
       ],
-      status: "unused"
+      status: "unused",
+      gif: "assets/images/hulk.gif"
     },
     {
       question: "What is the name of Star Lords' Ship?",
@@ -43,7 +45,54 @@ $(document).ready(function() {
         { answer: "The Dark Aster", status: "unused", correct: "false" },
         { answer: "The Eclector", status: "unused", correct: "false" }
       ],
-      status: "unused"
+      status: "unused",
+      gif: "assets/images/starlord.gif"
+    },
+    {
+      question: "What Level agent in S.H.I.E.L.D. is Phil Coulson?",
+      answers: [
+        { answer: "Level 8", status: "unused", correct: "true" },
+        { answer: "Level 10", status: "unused", correct: "false" },
+        { answer: "Level 1", status: "unused", correct: "false" },
+        { answer: "Level 5", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/phil.gif"
+    },
+    {
+      question:
+        "What organization was funding Obadiah in his quest to defeat Tony/Iron Man?",
+      answers: [
+        { answer: "The 10 Rings", status: "unused", correct: "true" },
+        { answer: "Hydra", status: "unused", correct: "false" },
+        { answer: "AIM", status: "unused", correct: "false" },
+        { answer: "HAMMER", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/obadiah.gif"
+    },
+    {
+      question:
+        "Which German Doctor was used by the S.S.R. for his intelligence?",
+      answers: [
+        { answer: "Dr. Arnim Zola", status: "unused", correct: "true" },
+        { answer: "Dr. List", status: "unused", correct: "false" },
+        { answer: "Dr. Whitehall", status: "unused", correct: "false" },
+        { answer: "Osmium", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/arnim.gif"
+    },
+    {
+      question: "How many suits does Tony make before the end of Iron Man 3?",
+      answers: [
+        { answer: "42", status: "unused", correct: "true" },
+        { answer: "24", status: "unused", correct: "false" },
+        { answer: "65", status: "unused", correct: "false" },
+        { answer: "36", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/ironman.gif"
     }
   ];
 
@@ -138,13 +187,18 @@ $(document).ready(function() {
     $("#answers-section").html("");
     $("#question-section").html("");
     $("#timer-section").html("");
+    $("#gif-section").html("");
   }
 
   // PRINTS A MESSAGE SAYING THE PLAYER IS CORRECT
   function correctPrint() {
+    var currentGif = $("<img>");
+    currentGif.attr("id", "answer-gif");
+    currentGif.attr("src", triviaContent[currentQuestion].gif);
     var correctH2 = $("<h2>").text("Correct!");
     correctH2.attr("id", "correct-display");
     $("#question-section").html(correctH2);
+    $("#gif-section").append(currentGif);
   }
 
   // PRINTS A MESSAGE SAYING THE PLAYER IS INCORRECT AND PRINTS THE CORRECT ANSWER
@@ -154,14 +208,21 @@ $(document).ready(function() {
       "The correct answer was " +
         triviaContent[currentQuestion].answers[0].answer
     );
+    var currentGif = $("<img>");
+    currentGif.attr("id", "answer-gif");
+    currentGif.attr("src", triviaContent[currentQuestion].gif);
     incorrectH2.attr("id", "incorrect-display");
     rightAnswer.attr("id", "right-answer");
     $("#question-section").append(incorrectH2);
     $("#answers-section").append(rightAnswer);
+    $("#gif-section").append(currentGif);
   }
 
   // PRINTS A MESSAGE SAYING OUT OF TIME AND PRINTS CORRECT ANSWER AND GOES TO NEXT QUESTION
   function timesUpPrint() {
+    var currentGif = $("<img>");
+    currentGif.attr("id", "answer-gif");
+    currentGif.attr("src", triviaContent[currentQuestion].gif);
     var timesUp = $("<h2>").text("Times Up!");
     var rightAnswer = $("<h3>").text(
       "The correct answer was " +
@@ -171,6 +232,7 @@ $(document).ready(function() {
     rightAnswer.attr("id", "right-answer");
     $("#question-section").append(timesUp);
     $("#answers-section").append(rightAnswer);
+    $("#gif-section").append(currentGif);
   }
 
   // CLEARS THE SCREEN AND PRINTS THE NEXT QUESTIN AND ANSWERS
@@ -247,4 +309,14 @@ $(document).ready(function() {
       }
     }
   }
+
+  // ENABLES PRESSING ENTER FOR START AND RESET
+  $(document).keypress(function(e) {
+    var key = e.which;
+    if (key == 13) {
+      $("#start-btn").click();
+      $("#reset-btn").click();
+      return false;
+    }
+  });
 });
