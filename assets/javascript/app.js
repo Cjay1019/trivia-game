@@ -1,47 +1,47 @@
 // CSS
-// ADD TIMERS
 // ADD REAL TRIVIA
 // ADD GIFS
 
 $(document).ready(function() {
   var triviaContent = [
     {
-      question: "q1fillerq",
+      question:
+        "Who was the doctor that transformed Steve Rogers into Captain America?",
       answers: [
-        { answer: "q1fillera1", status: "unused", correct: "true" },
-        { answer: "q1fillera2", status: "unused", correct: "false" },
-        { answer: "q1fillera3", status: "unused", correct: "false" },
-        { answer: "q1fillera4", status: "unused", correct: "false" }
+        { answer: "Dr. Erskine", status: "unused", correct: "true" },
+        { answer: "Dr. Levy", status: "unused", correct: "false" },
+        { answer: "Dr. Whitehall", status: "unused", correct: "false" },
+        { answer: "Dr. West", status: "unused", correct: "false" }
       ],
       status: "unused"
     },
     {
-      question: "q2fillerq",
+      question: "What is Captain America's shield made out of?",
       answers: [
-        { answer: "q2fillera1", status: "unused", correct: "true" },
-        { answer: "q2fillera2", status: "unused", correct: "false" },
-        { answer: "q2fillera3", status: "unused", correct: "false" },
-        { answer: "q2fillera4", status: "unused", correct: "false" }
+        { answer: "Vibranium", status: "unused", correct: "true" },
+        { answer: "Adamantium", status: "unused", correct: "false" },
+        { answer: "Carbonadium", status: "unused", correct: "false" },
+        { answer: "Osmium", status: "unused", correct: "false" }
       ],
       status: "unused"
     },
     {
-      question: "q3fillerq",
+      question: "What caused Bruce Banners heroic change into the Hulk?",
       answers: [
-        { answer: "q3fillera1", status: "unused", correct: "true" },
-        { answer: "q3fillera2", status: "unused", correct: "false" },
-        { answer: "q3fillera3", status: "unused", correct: "false" },
-        { answer: "q3fillera4", status: "unused", correct: "false" }
+        { answer: "Gamma Radiation", status: "unused", correct: "true" },
+        { answer: "Cosmic Radiation", status: "unused", correct: "false" },
+        { answer: "Vita Radiation", status: "unused", correct: "false" },
+        { answer: "Beta Radiation", status: "unused", correct: "false" }
       ],
       status: "unused"
     },
     {
-      question: "q4fillerq",
+      question: "What is the name of Star Lords' Ship?",
       answers: [
-        { answer: "q4fillera1", status: "unused", correct: "true" },
-        { answer: "q4fillera2", status: "unused", correct: "false" },
-        { answer: "q4fillera3", status: "unused", correct: "false" },
-        { answer: "q4fillera4", status: "unused", correct: "false" }
+        { answer: "The Milano", status: "unused", correct: "true" },
+        { answer: "The Commodore", status: "unused", correct: "false" },
+        { answer: "The Dark Aster", status: "unused", correct: "false" },
+        { answer: "The Eclector", status: "unused", correct: "false" }
       ],
       status: "unused"
     }
@@ -51,6 +51,8 @@ $(document).ready(function() {
   var correctNumber = 0;
   var incorrectNumber = 0;
   var unansweredNumber = 0;
+  var timeRemaining = 15;
+  var intervalId;
 
   // CLICK HANDLERS
   $("body").on("click", "#start-btn", function() {
@@ -59,7 +61,7 @@ $(document).ready(function() {
   });
 
   $("body").on("click", ".answers", function(e) {
-    clearQuestionAnswers();
+    clearScreen();
     var valueString = e.currentTarget.getAttribute("value");
     if (valueString === "true") {
       correctNumber++;
@@ -94,6 +96,7 @@ $(document).ready(function() {
       var questionh3 = $("<h3>").text(triviaContent[randomQuestion].question);
       questionh3.attr("id", "question");
       $("#question-section").append(questionh3);
+      printTimer();
     } else {
       endScreen();
     }
@@ -103,12 +106,12 @@ $(document).ready(function() {
   function answerChooser(x) {
     for (j = 0; j < 4; j++) {
       var remainingAnswers = [];
-      if (x > -1) {
-        for (i = 0; i < triviaContent[x].answers.length; i++) {
-          if (triviaContent[x].answers[i].status === "unused") {
-            remainingAnswers.push(i);
-          }
+      for (i = 0; i < triviaContent[x].answers.length; i++) {
+        if (triviaContent[x].answers[i].status === "unused") {
+          remainingAnswers.push(i);
         }
+      }
+      if (remainingAnswers.length > 0) {
         var randomAnswer =
           remainingAnswers[Math.floor(Math.random() * remainingAnswers.length)];
         triviaContent[x].answers[randomAnswer].status = "used";
@@ -118,6 +121,8 @@ $(document).ready(function() {
         answersH2.attr("class", "answers");
         answersH2.attr("value", triviaContent[x].answers[randomAnswer].correct);
         $("#answers-section").append(answersH2);
+      } else {
+        return;
       }
     }
   }
@@ -129,9 +134,10 @@ $(document).ready(function() {
   }
 
   // CLEARS THE SCREEN OF QUESTIONS AND ANSWERS
-  function clearQuestionAnswers() {
+  function clearScreen() {
     $("#answers-section").html("");
     $("#question-section").html("");
+    $("#timer-section").html("");
   }
 
   // PRINTS A MESSAGE SAYING THE PLAYER IS CORRECT
@@ -154,17 +160,31 @@ $(document).ready(function() {
     $("#answers-section").append(rightAnswer);
   }
 
+  // PRINTS A MESSAGE SAYING OUT OF TIME AND PRINTS CORRECT ANSWER AND GOES TO NEXT QUESTION
+  function timesUpPrint() {
+    var timesUp = $("<h2>").text("Times Up!");
+    var rightAnswer = $("<h3>").text(
+      "The correct answer was " +
+        triviaContent[currentQuestion].answers[0].answer
+    );
+    timesUp.attr("id", "times-up");
+    rightAnswer.attr("id", "right-answer");
+    $("#question-section").append(timesUp);
+    $("#answers-section").append(rightAnswer);
+  }
+
   // CLEARS THE SCREEN AND PRINTS THE NEXT QUESTIN AND ANSWERS
   function nextQuestion() {
+    resetTime();
     setTimeout(function() {
-      clearQuestionAnswers();
+      clearScreen();
       answersQuestionPrint();
-    }, 500);
+    }, 3000);
   }
 
   // PRINTS THE END SCREEN CONTAINING SCORES AND RESET BUTTONS
   function endScreen() {
-    clearQuestionAnswers();
+    clearScreen();
     var allDone = $("<h2>").text("All done, here's how you did!");
     var correct = $("<h3>").text("Correct Answers: " + correctNumber);
     var incorrect = $("<h3>").text("Incorrect Answers: " + incorrectNumber);
@@ -180,9 +200,39 @@ $(document).ready(function() {
     $("#btn-section").append(resetBtn);
   }
 
+  // DECREMENTS THE TIMER AND PRINTS REMAINING TIME
+  function count() {
+    if (timeRemaining > 0) {
+      timeRemaining--;
+      $("#time-display").text("Time Remaining: " + timeRemaining + " Seconds");
+    } else {
+      unansweredNumber++;
+      clearInterval(intervalId);
+      clearScreen();
+      timesUpPrint();
+      nextQuestion();
+    }
+  }
+
+  // RESETS THE TIMER
+  function resetTime() {
+    timeRemaining = 15;
+    clearInterval(intervalId);
+  }
+
+  // PRINTS THE TIMER AND STARTS COUNTDOWN
+  function printTimer() {
+    var timeDisplay = $("<h3>").text(
+      "Time Remaining: " + timeRemaining + " Seconds"
+    );
+    timeDisplay.attr("id", "time-display");
+    $("#timer-section").append(timeDisplay);
+    intervalId = setInterval(count, 1000);
+  }
+
   // RESETS THE GAME
   function reset() {
-    clearQuestionAnswers();
+    clearScreen();
     var startBtn = $("<button>").text("Press to Start");
     startBtn.attr("id", "start-btn");
     $("#btn-section").html(startBtn);
@@ -190,7 +240,7 @@ $(document).ready(function() {
     correctNumber = 0;
     incorrectNumber = 0;
     unansweredNumber = 0;
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < triviaContent.length; i++) {
       triviaContent[i].status = "unused";
       for (var key in triviaContent) {
         triviaContent[i].answers[key].status = "unused";
