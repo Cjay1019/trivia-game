@@ -1,7 +1,7 @@
-// ADD GIFS
 // CSS
 // ADD TIMERS
 // ADD REAL TRIVIA
+// ADD GIFS
 
 $(document).ready(function() {
   var triviaContent = [
@@ -101,14 +101,14 @@ $(document).ready(function() {
 
   // PRINTS THE ANSWERS OPTIONS FOR THE CURRENT QUESTION IN RANDOM ORDER
   function answerChooser(x) {
-    var remainingAnswers = [];
-    if (x > -1) {
-      for (i = 0; i < triviaContent[x].answers.length; i++) {
-        if (triviaContent[x].answers[i].status === "unused") {
-          remainingAnswers.push(i);
+    for (j = 0; j < 4; j++) {
+      var remainingAnswers = [];
+      if (x > -1) {
+        for (i = 0; i < triviaContent[x].answers.length; i++) {
+          if (triviaContent[x].answers[i].status === "unused") {
+            remainingAnswers.push(i);
+          }
         }
-      }
-      if (remainingAnswers.length !== 0) {
         var randomAnswer =
           remainingAnswers[Math.floor(Math.random() * remainingAnswers.length)];
         triviaContent[x].answers[randomAnswer].status = "used";
@@ -118,7 +118,6 @@ $(document).ready(function() {
         answersH2.attr("class", "answers");
         answersH2.attr("value", triviaContent[x].answers[randomAnswer].correct);
         $("#answers-section").append(answersH2);
-      } else {
       }
     }
   }
@@ -126,9 +125,6 @@ $(document).ready(function() {
   // PRINTS THE CURRENT QUESTION AND RANDOMLY ORDERED ANSWER OPTIONS
   function answersQuestionPrint() {
     questionChooser();
-    answerChooser(currentQuestion);
-    answerChooser(currentQuestion);
-    answerChooser(currentQuestion);
     answerChooser(currentQuestion);
   }
 
