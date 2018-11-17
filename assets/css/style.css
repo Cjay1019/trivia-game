@@ -2,7 +2,10 @@ html {
   background: url(../images/background.jpg) no-repeat;
 }
 
-body {
-  text-align: center;
-  height: 80vh;
+#answer-gif {
+  max-width: 80%;
+}
+
+.answers {
+  margin: 1rem auto 1rem auto;
 }

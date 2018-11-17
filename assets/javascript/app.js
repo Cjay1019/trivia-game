@@ -1,5 +1,8 @@
-// CSS
-// ADD MORE QUESTIONS/GIFS
+// RESET TIMER TO 3 SEC
+// ADD MORE QUESTIONS
+// SET GAME TO 8 QUESTIONS WITH EXCESS QUESTIONS
+// CREATE README
+// LINK TO PORTFOLIO
 
 $(document).ready(function() {
   var triviaContent = [
@@ -96,6 +99,7 @@ $(document).ready(function() {
     }
   ];
 
+  // GLOBAL VARIABLES
   var currentQuestion = -1;
   var correctNumber = 0;
   var incorrectNumber = 0;
@@ -167,7 +171,11 @@ $(document).ready(function() {
         var answersH2 = $("<h2>").text(
           triviaContent[x].answers[randomAnswer].answer
         );
-        answersH2.attr("class", "answers");
+        answersH2.attr(
+          "class",
+          "answers btn btn-outline-primary waves-effect d-block w-25"
+        );
+        answersH2.attr("style", "min-width: 200px;");
         answersH2.attr("value", triviaContent[x].answers[randomAnswer].correct);
         $("#answers-section").append(answersH2);
       } else {
@@ -241,7 +249,7 @@ $(document).ready(function() {
     setTimeout(function() {
       clearScreen();
       answersQuestionPrint();
-    }, 3000);
+    }, 1000);
   }
 
   // PRINTS THE END SCREEN CONTAINING SCORES AND RESET BUTTONS
@@ -257,6 +265,7 @@ $(document).ready(function() {
     incorrect.attr("id", "incorrect-number");
     unanswered.attr("id", "unanswered-number");
     resetBtn.attr("id", "reset-btn");
+    resetBtn.attr("class", "btn btn-light");
     $("#question-section").append(allDone);
     $("#answers-section").append(correct, incorrect, unanswered);
     $("#btn-section").append(resetBtn);
@@ -297,16 +306,18 @@ $(document).ready(function() {
     clearScreen();
     var startBtn = $("<button>").text("Press to Start");
     startBtn.attr("id", "start-btn");
+    startBtn.attr("class", "btn btn-light");
     $("#btn-section").html(startBtn);
     currentQuestion = -1;
     correctNumber = 0;
     incorrectNumber = 0;
     unansweredNumber = 0;
-    for (i = 0; i < triviaContent.length; i++) {
-      triviaContent[i].status = "unused";
-      for (var key in triviaContent) {
-        triviaContent[i].answers[key].status = "unused";
-      }
+    for (k = 0; k < triviaContent.length; k++) {
+      triviaContent[k].status = "unused";
+      triviaContent[k].answers[0].status = "unused";
+      triviaContent[k].answers[1].status = "unused";
+      triviaContent[k].answers[2].status = "unused";
+      triviaContent[k].answers[3].status = "unused";
     }
   }
 
