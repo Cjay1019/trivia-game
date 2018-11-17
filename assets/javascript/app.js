@@ -1,6 +1,5 @@
 // RESET TIMER TO 3 SEC
 // ADD MORE QUESTIONS
-// SET GAME TO 8 QUESTIONS WITH EXCESS QUESTIONS
 // CREATE README
 // LINK TO PORTFOLIO
 
@@ -106,6 +105,7 @@ $(document).ready(function() {
   var unansweredNumber = 0;
   var timeRemaining = 15;
   var intervalId;
+  var questionsCompleted = 0;
 
   // CLICK HANDLERS
   $("body").on("click", "#start-btn", function() {
@@ -118,10 +118,12 @@ $(document).ready(function() {
     var valueString = e.currentTarget.getAttribute("value");
     if (valueString === "true") {
       correctNumber++;
+      questionsCompleted++;
       correctPrint();
       nextQuestion();
     } else {
       incorrectNumber++;
+      questionsCompleted++;
       incorrectPrint();
       nextQuestion();
     }
@@ -139,7 +141,7 @@ $(document).ready(function() {
         remainingQuestions.push(i);
       }
     }
-    if (remainingQuestions.length > 0) {
+    if (questionsCompleted < 8) {
       var randomQuestion =
         remainingQuestions[
           Math.floor(Math.random() * remainingQuestions.length)
@@ -192,10 +194,10 @@ $(document).ready(function() {
 
   // CLEARS THE SCREEN OF QUESTIONS AND ANSWERS
   function clearScreen() {
-    $("#answers-section").html("");
-    $("#question-section").html("");
-    $("#timer-section").html("");
-    $("#gif-section").html("");
+    $("#answers-section").empty();
+    $("#question-section").empty();
+    $("#timer-section").empty();
+    $("#gif-section").empty();
   }
 
   // PRINTS A MESSAGE SAYING THE PLAYER IS CORRECT
@@ -278,6 +280,7 @@ $(document).ready(function() {
       $("#time-display").text("Time Remaining: " + timeRemaining + " Seconds");
     } else {
       unansweredNumber++;
+      questionsCompleted++;
       clearInterval(intervalId);
       clearScreen();
       timesUpPrint();
@@ -312,13 +315,13 @@ $(document).ready(function() {
     correctNumber = 0;
     incorrectNumber = 0;
     unansweredNumber = 0;
-    for (k = 0; k < triviaContent.length; k++) {
-      triviaContent[k].status = "unused";
-      triviaContent[k].answers[0].status = "unused";
-      triviaContent[k].answers[1].status = "unused";
-      triviaContent[k].answers[2].status = "unused";
-      triviaContent[k].answers[3].status = "unused";
-    }
+    questionsCompleted = 0;
+    triviaContent.forEach(function(question) {
+      question.status = "unused";
+      question.answers.forEach(function(answer) {
+        answer.status = "unused";
+      });
+    });
   }
 
   // ENABLES PRESSING ENTER FOR START AND RESET

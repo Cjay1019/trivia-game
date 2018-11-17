@@ -2,6 +2,10 @@ html {
   background: url(../images/background.jpg) no-repeat;
 }
 
+body {
+  min-height: 100vh;
+}
+
 #answer-gif {
   max-width: 80%;
 }
