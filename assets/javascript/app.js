@@ -252,7 +252,7 @@ $(document).ready(function() {
     setTimeout(function() {
       clearScreen();
       answersQuestionPrint();
-    }, 1000);
+    }, 3000);
   }
 
   // PRINTS THE END SCREEN CONTAINING SCORES AND RESET BUTTONS
