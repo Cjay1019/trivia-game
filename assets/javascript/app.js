@@ -150,6 +150,7 @@ $(document).ready(function() {
       triviaContent[randomQuestion].status = "used";
       var questionh3 = $("<h3>").text(triviaContent[randomQuestion].question);
       questionh3.attr("id", "question");
+      questionh3.attr("class", "animated flipInX");
       $("#question-section").append(questionh3);
       printTimer();
     } else {
@@ -175,7 +176,7 @@ $(document).ready(function() {
         );
         answersH2.attr(
           "class",
-          "answers btn btn-outline-primary waves-effect d-block w-25"
+          "answers btn btn-outline-primary waves-effect d-block w-25 animated flipInX"
         );
         answersH2.attr("style", "min-width: 200px;");
         answersH2.attr("value", triviaContent[x].answers[randomAnswer].correct);
@@ -300,6 +301,7 @@ $(document).ready(function() {
       "Time Remaining: " + timeRemaining + " Seconds"
     );
     timeDisplay.attr("id", "time-display");
+    timeDisplay.attr("class", "animated flipInX");
     $("#timer-section").append(timeDisplay);
     intervalId = setInterval(count, 1000);
   }

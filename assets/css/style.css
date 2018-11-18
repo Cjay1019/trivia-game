@@ -4,6 +4,7 @@ html {
 
 body {
   min-height: 100vh;
+  animation: fadein 1s;
 }
 
 #answer-gif {
@@ -12,4 +13,13 @@ body {
 
 .answers {
   margin: 1rem auto 1rem auto;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
