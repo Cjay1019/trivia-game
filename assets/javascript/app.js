@@ -1,7 +1,4 @@
-// RESET TIMER TO 3 SEC
-// ADD MORE QUESTIONS
 // CREATE README
-// LINK TO PORTFOLIO
 
 $(document).ready(function() {
   var triviaContent = [
@@ -95,6 +92,62 @@ $(document).ready(function() {
       ],
       status: "unused",
       gif: "assets/images/ironman.gif"
+    },
+    {
+      question: "What number is on the side of the Helicarrier?",
+      answers: [
+        { answer: "64", status: "unused", correct: "true" },
+        { answer: "24", status: "unused", correct: "false" },
+        { answer: "42", status: "unused", correct: "false" },
+        { answer: "36", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/helicarrier.gif"
+    },
+    {
+      question: "What year did Captain America come out of his icy coma?",
+      answers: [
+        { answer: "2011", status: "unused", correct: "true" },
+        { answer: "2013", status: "unused", correct: "false" },
+        { answer: "2017", status: "unused", correct: "false" },
+        { answer: "2007", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/coma.gif"
+    },
+    {
+      question: "In which MCU film did Thanos first appear?",
+      answers: [
+        { answer: "The Avengers", status: "unused", correct: "true" },
+        {
+          answer: "The Avengers: Age of Ultron",
+          status: "unused",
+          correct: "false"
+        },
+        {
+          answer: "The Avengers: Infinity War",
+          status: "unused",
+          correct: "false"
+        },
+        {
+          answer: "Guardians of the Galaxy",
+          status: "unused",
+          correct: "false"
+        }
+      ],
+      status: "unused",
+      gif: "assets/images/thanos.gif"
+    },
+    {
+      question: "Which of these is NOT the name of an Infinity Stone",
+      answers: [
+        { answer: "Control Stone", status: "unused", correct: "true" },
+        { answer: "Space Stone", status: "unused", correct: "false" },
+        { answer: "Power Stone", status: "unused", correct: "false" },
+        { answer: "Mind Stone", status: "unused", correct: "false" }
+      ],
+      status: "unused",
+      gif: "assets/images/gauntlet.gif"
     }
   ];
 
