@@ -202,8 +202,7 @@ $(document).ready(function() {
       currentQuestion = randomQuestion;
       triviaContent[randomQuestion].status = "used";
       var questionh3 = $("<h3>").text(triviaContent[randomQuestion].question);
-      questionh3.attr("id", "question");
-      questionh3.attr("class", "animated flipInX");
+      questionh3.attr({ id: "question", class: "animated flipInX" });
       $("#question-section").append(questionh3);
       printTimer();
     } else {
@@ -227,12 +226,12 @@ $(document).ready(function() {
         var answersH2 = $("<h2>").text(
           triviaContent[x].answers[randomAnswer].answer
         );
-        answersH2.attr(
-          "class",
-          "answers btn btn-outline-primary waves-effect d-block w-25 animated flipInX"
-        );
-        answersH2.attr("style", "min-width: 200px;");
-        answersH2.attr("value", triviaContent[x].answers[randomAnswer].correct);
+        answersH2.attr({
+          class:
+            "answers btn btn-outline-primary waves-effect d-block w-25 animated flipInX",
+          style: "min-width: 200px;",
+          value: triviaContent[x].answers[randomAnswer].correct
+        });
         $("#answers-section").append(answersH2);
       } else {
         return;
@@ -257,10 +256,16 @@ $(document).ready(function() {
   // PRINTS A MESSAGE SAYING THE PLAYER IS CORRECT
   function correctPrint() {
     var currentGif = $("<img>");
-    currentGif.attr("id", "answer-gif");
-    currentGif.attr("src", triviaContent[currentQuestion].gif);
     var correctH2 = $("<h2>").text("Correct!");
-    correctH2.attr("id", "correct-display");
+    currentGif.attr({
+      src: triviaContent[currentQuestion].gif,
+      class: "animated fadeInUp",
+      id: "answer-gif"
+    });
+    correctH2.attr({
+      id: "correct-display",
+      class: "animated fadeInUp"
+    });
     $("#question-section").html(correctH2);
     $("#gif-section").append(currentGif);
   }
@@ -268,15 +273,18 @@ $(document).ready(function() {
   // PRINTS A MESSAGE SAYING THE PLAYER IS INCORRECT AND PRINTS THE CORRECT ANSWER
   function incorrectPrint() {
     var incorrectH2 = $("<h2>").text("Incorrect!");
+    var currentGif = $("<img>");
     var rightAnswer = $("<h3>").text(
       "The correct answer was " +
         triviaContent[currentQuestion].answers[0].answer
     );
-    var currentGif = $("<img>");
-    currentGif.attr("id", "answer-gif");
-    currentGif.attr("src", triviaContent[currentQuestion].gif);
-    incorrectH2.attr("id", "incorrect-display");
-    rightAnswer.attr("id", "right-answer");
+    currentGif.attr({
+      src: triviaContent[currentQuestion].gif,
+      class: "animated fadeInUp",
+      id: "answer-gif"
+    });
+    incorrectH2.attr({ id: "correct-display", class: "animated fadeInUp" });
+    rightAnswer.attr({ id: "right-answer", class: "animated fadeInUp" });
     $("#question-section").append(incorrectH2);
     $("#answers-section").append(rightAnswer);
     $("#gif-section").append(currentGif);
@@ -285,15 +293,18 @@ $(document).ready(function() {
   // PRINTS A MESSAGE SAYING OUT OF TIME AND PRINTS CORRECT ANSWER AND GOES TO NEXT QUESTION
   function timesUpPrint() {
     var currentGif = $("<img>");
-    currentGif.attr("id", "answer-gif");
-    currentGif.attr("src", triviaContent[currentQuestion].gif);
     var timesUp = $("<h2>").text("Times Up!");
     var rightAnswer = $("<h3>").text(
       "The correct answer was " +
         triviaContent[currentQuestion].answers[0].answer
     );
-    timesUp.attr("id", "times-up");
-    rightAnswer.attr("id", "right-answer");
+    currentGif.attr({
+      id: "answer-gif",
+      src: triviaContent[currentQuestion].gif,
+      class: "animated fadeInUp"
+    });
+    timesUp.attr({ id: "times-up", class: "animated fadeInUp" });
+    rightAnswer.attr({ id: "right-answer", class: "animated fadeInUp" });
     $("#question-section").append(timesUp);
     $("#answers-section").append(rightAnswer);
     $("#gif-section").append(currentGif);
@@ -316,12 +327,14 @@ $(document).ready(function() {
     var incorrect = $("<h3>").text("Incorrect Answers: " + incorrectNumber);
     var unanswered = $("<h3>").text("Unanswered: " + unansweredNumber);
     var resetBtn = $("<button>").text("Play Again!");
-    allDone.attr("id", "all-done");
-    correct.attr("id", "correct-number");
-    incorrect.attr("id", "incorrect-number");
-    unanswered.attr("id", "unanswered-number");
-    resetBtn.attr("id", "reset-btn");
-    resetBtn.attr("class", "btn btn-light");
+    allDone.attr({ id: "all-done", class: "animated fadeInUp" });
+    correct.attr({ id: "correct-number", class: "animated fadeInUp" });
+    incorrect.attr({ id: "incorrect-number", class: "animated fadeInUp" });
+    unanswered.attr({ id: "unanswered-number", class: "animated fadeInUp" });
+    resetBtn.attr({
+      id: "reset-btn",
+      class: "btn btn-light animated fadeInUp"
+    });
     $("#question-section").append(allDone);
     $("#answers-section").append(correct, incorrect, unanswered);
     $("#btn-section").append(resetBtn);
@@ -353,8 +366,7 @@ $(document).ready(function() {
     var timeDisplay = $("<h3>").text(
       "Time Remaining: " + timeRemaining + " Seconds"
     );
-    timeDisplay.attr("id", "time-display");
-    timeDisplay.attr("class", "animated flipInX");
+    timeDisplay.attr({ id: "time-display", class: "animated flipInX" });
     $("#timer-section").append(timeDisplay);
     intervalId = setInterval(count, 1000);
   }
@@ -363,8 +375,7 @@ $(document).ready(function() {
   function reset() {
     clearScreen();
     var startBtn = $("<button>").text("Press to Start");
-    startBtn.attr("id", "start-btn");
-    startBtn.attr("class", "btn btn-light");
+    startBtn.attr({ id: "start-btn", class: "btn btn-light" });
     $("#btn-section").html(startBtn);
     currentQuestion = -1;
     correctNumber = 0;
