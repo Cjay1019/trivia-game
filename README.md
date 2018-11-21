@@ -1,6 +1,6 @@
 # MCU Trivia Game
 
-This application is a simple trivia game, with questions based on the Marvel Cinematic Universe (MCU). The project was primarily created with Javascript, utilizing jQuery to dynamically create and manipulate html elements. https://cjay1019.github.io/trivia-game/
+This fully responsive application is a simple trivia game, with questions based on the Marvel Cinematic Universe (MCU). The project was primarily created with Javascript, utilizing jQuery to dynamically create and manipulate html elements. https://cjay1019.github.io/trivia-game/
 
 ## How To Play
 
